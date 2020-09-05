@@ -27,7 +27,7 @@ export default ({ brandUid }) => {
       .get(`/brands/${brandUid}`)
       .then((response) => setProducts(response.data.brand.products))
       .catch((error) => console.log(error));
-  }, [brandUid, products]);
+  }, [products]);
 
   return (
     <Products>
