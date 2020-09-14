@@ -6,17 +6,18 @@ import { Products, ProductRegister } from "./styles";
 export default ({ brandUid }) => {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
-
   const [products, setProducts] = useState([]);
 
-  async function sendProduct() {
+  async function handleStoreProduct() {
     await api
       .post("/products", {
         brand_uid: brandUid,
         name,
         quantity,
       })
-      .then((response) => console.log(response))
+      .then((response) =>
+        setProducts([...products, response.data.brand.products])
+      )
       .catch((error) => console.log(error));
     setName("");
     setQuantity("");
@@ -27,7 +28,7 @@ export default ({ brandUid }) => {
       .get(`/brands/${brandUid}`)
       .then((response) => setProducts(response.data.brand.products))
       .catch((error) => console.log(error));
-  }, [products]);
+  }, [brandUid]);
 
   return (
     <Products>
@@ -48,7 +49,7 @@ export default ({ brandUid }) => {
             onChange={(e) => setQuantity(e.target.value)}
           ></input>
         </label>
-        <button onClick={sendProduct}>Adicionar produto</button>
+        <button onClick={handleStoreProduct}>Adicionar produto</button>
       </ProductRegister>
       <div style={{ width: "100%" }}>
         <table border="1" style={{ width: "80%", margin: "auto" }}>

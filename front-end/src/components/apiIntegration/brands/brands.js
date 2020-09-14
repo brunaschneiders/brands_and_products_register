@@ -15,7 +15,7 @@ export default () => {
   const [name, setName] = useState("");
   const [brands, setBrands] = useState([]);
 
-  async function sendBrand() {
+  async function handleStoreBrand() {
     await api
       .post("/brands", {
         name,
@@ -49,7 +49,7 @@ export default () => {
                 onChange={(e) => setName(e.target.value)}
               ></input>
             </label>
-            <button onClick={sendBrand}>Cadastrar Marca</button>
+            <button onClick={handleStoreBrand}>Cadastrar Marca</button>
           </div>
         </BrandRegister>
 
